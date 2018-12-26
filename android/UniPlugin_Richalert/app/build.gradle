@@ -8,6 +8,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,6 +25,24 @@ android {
         ignoreAssetsPattern "!.svn:!.git:.*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~"
     }
     /*代码结束*/
+    signingConfigs {
+        config {
+            keyAlias 'debug'
+            keyPassword '123123'
+            storeFile file('debug.jks')
+            storePassword '123123'
+            v2SigningEnabled false
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+        release {
+            signingConfig signingConfigs.config
+        }
+    }
 }
 repositories {
     flatDir {
@@ -44,6 +63,6 @@ dependencies {
     implementation 'com.alibaba.android:bindingx-core:1.0.3'
     implementation 'com.alibaba.android:bindingx_weex_plugin:1.0.3'
 
-    // 添加uniapp插件
+    // 添加uni-app插件
     implementation project(':uniplugin_richalert')
 }
