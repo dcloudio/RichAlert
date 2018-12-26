@@ -1,0 +1,1 @@
+include ':app', ':uniplugin_richalert'
