@@ -19,7 +19,7 @@ Android版本|iOS版本|H5版本|微信小程序版本
 
 Android效果图|iOS效果图
 ----|----|
-<img src="http://img.cdn.aliyun.dcloud.net.cn/stream/plugin_screens/17aa1ab0-074c-11e9-805c-43a1894bc3c6_0.png" width="250" height=""/>|<img src="http://img.cdn.aliyun.dcloud.net.cn/stream/plugin_screens/17aa1ab0-074c-11e9-805c-43a1894bc3c6_1.PNG" width="250" height=""/>
+<img src="https://github.com/dcloudio/RichAlert/blob/master/imgs/android.png?raw=true" width="250" height=""/>|<img src="https://github.com/dcloudio/RichAlert/blob/master/imgs/IMG_7052.PNG?raw=true" width="250" height=""/>
 
 
 ###clone 项目到本地
