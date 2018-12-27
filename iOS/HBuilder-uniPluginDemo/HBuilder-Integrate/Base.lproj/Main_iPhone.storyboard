@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment version="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuZ-YX-2HJ">
+                                <rect key="frame" x="61" y="83" width="198" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="198" id="c9j-Co-Llk"/>
+                                    <constraint firstAttribute="height" constant="73" id="ckl-Qh-zal"/>
+                                </constraints>
+                                <state key="normal" title="Webview集成显示HTML页面">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ShowWebViewPageOne:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9ZQ-mi-Gu0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyL-UE-904">
+                                <rect key="frame" x="46" y="225" width="229" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="229" id="Rkt-yS-OIB"/>
+                                </constraints>
+                                <state key="normal" title="Widget方式集成显示本地应用">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ShowWebViewPageTwo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hRB-Z5-atx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lyL-UE-904" firstAttribute="top" secondItem="iuZ-YX-2HJ" secondAttribute="bottom" constant="69" id="2JT-nD-vHV"/>
+                            <constraint firstItem="iuZ-YX-2HJ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="63" id="NbV-O4-dfy"/>
+                            <constraint firstItem="lyL-UE-904" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="xvq-vT-nSz"/>
+                            <constraint firstItem="iuZ-YX-2HJ" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="zkO-8v-xsh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnShowLocalPage" destination="iuZ-YX-2HJ" id="TIh-ba-3EF"/>
+                        <outlet property="btnShowLocalPage2" destination="lyL-UE-904" id="OS6-rW-c47"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-93" y="-364"/>
+        </scene>
+    </scenes>
+</document>
