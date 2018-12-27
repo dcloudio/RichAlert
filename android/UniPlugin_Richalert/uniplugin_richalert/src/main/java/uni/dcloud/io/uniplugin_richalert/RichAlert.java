@@ -30,7 +30,6 @@ import com.taobao.weex.utils.WXResourceUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
@@ -45,18 +44,17 @@ public class RichAlert {
     public static String TITLE = "title";
     public static String TITLE_COLOR = "titleColor";
 
-    int mTitleColor = Color.BLACK;
-    int mTitleAlign = Gravity.CENTER;
     int mPositiveColor = Color.BLACK;
     int mNegativeColor = Color.BLACK;
     int mNeutralColor = Color.BLACK;
     int mPosition = Gravity.CENTER;
     Context mContext;
+    LinearLayout mContentViewRootView;
     CheckBox mCheckBox;
     TextView mMessageView;
+    TextView mTitleView;
     AlertDialog mAlertDialog;
     AlertDialog.Builder mBuilder;
-    LinearLayout mMessageViewRootView;
 
     String SELECTED = "isSelected";
 
@@ -70,12 +68,12 @@ public class RichAlert {
      */
     public void show() {
         mAlertDialog = mBuilder.create();
-        if(mMessageViewRootView != null) {
-            mAlertDialog.setView(mMessageViewRootView);
+        if(mContentViewRootView != null) {
+            mAlertDialog.setView(mContentViewRootView);
             if(mCheckBox != null) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.leftMargin = dip2px(mContext, 11);
-                mMessageViewRootView.addView(mCheckBox, layoutParams);
+                mContentViewRootView.addView(mCheckBox, layoutParams);
             }
         }
 
@@ -86,35 +84,9 @@ public class RichAlert {
         setButtonColor(AlertDialog.BUTTON_NEGATIVE, mNegativeColor);
         setButtonColor(AlertDialog.BUTTON_NEUTRAL, mNeutralColor);
 
-        initTitle();
-
         Window dialogWindow = mAlertDialog.getWindow();//获取window对象
         dialogWindow.setGravity(mPosition);
     }
-
-
-    private void initTitle() {
-        Field mAlert = null;
-        try {
-            mAlert = AlertDialog.class.getDeclaredField("mAlert");
-            mAlert.setAccessible(true);
-            Object mAlertController = mAlert.get(mAlertDialog);
-            Field mTitle = mAlertController.getClass().getDeclaredField("mTitleView");
-            mTitle.setAccessible(true);
-            TextView mTitleView = (TextView) mTitle.get(mAlertController);
-            if(mTitleView != null) {
-                mTitleView.setTextColor(mTitleColor);
-                mTitleView.setGravity(mTitleAlign | Gravity.CENTER_VERTICAL);
-                mTitleView.setPadding(dip2px(mContext, 16), 0, dip2px(mContext, 16), 0);
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     /**
      * 设置弹窗标题
@@ -123,9 +95,14 @@ public class RichAlert {
      * @return
      */
     public RichAlert setTitle(CharSequence title, int Color, String align) {
-        mBuilder.setTitle(title);
-        mTitleAlign = getAlign(align);
-        mTitleColor = Color;
+//        mBuilder.setTitle(title);
+        initContentView(mContext);
+        if(mTitleView != null) {
+            mTitleView.setVisibility(View.VISIBLE);
+            mTitleView.setText(title);
+            mTitleView.setTextColor(Color);
+            mTitleView.setGravity(getAlign(align) | Gravity.CENTER_VERTICAL);
+        }
         return this;
     }
 
@@ -138,7 +115,7 @@ public class RichAlert {
      */
     public RichAlert setContent(String content, int Color, String align, JSCallback jsCallback) {
         try {
-            initMessageView(mContext);
+            initContentView(mContext);
             ArrayList<Person> data = readxmlForDom(content);
             if(data != null && data.size() > 0) {
                 CharSequence ct = getContentCharSequence(data, jsCallback);
@@ -155,18 +132,33 @@ public class RichAlert {
         return this;
     }
 
-    private void initMessageView(Context context) {
-        if(mMessageViewRootView == null) {
-            mMessageViewRootView = new LinearLayout(context);
-            mMessageViewRootView.setOrientation(LinearLayout.VERTICAL);
+
+    /**
+     * 生成自定义内容布局
+     * 此处使用代码编写的布局，也可以使用XML布局方式加载
+     * @param context
+     */
+    private void initContentView(Context context) {
+        if(mContentViewRootView == null && context != null) {
+            mContentViewRootView = new LinearLayout(context);
+            mContentViewRootView.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout titleLayout = new LinearLayout(context);
+            mTitleView = new TextView(context);
+            mTitleView.setGravity(Gravity.CENTER);
+            mTitleView.setPadding(dip2px(mContext, 16), 0, dip2px(mContext, 16), 0);
+            mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+            LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dip2px(mContext, 45));
+            titleLayout.addView(mTitleView, titleParams);
+            mTitleView.setVisibility(View.GONE);
+            mContentViewRootView.addView(titleLayout, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             ScrollView scrollView = new ScrollView(context);
             mMessageView = new TextView(context);
             ScrollView.LayoutParams params = new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.topMargin = dip2px(context, 32);
-            params.bottomMargin = dip2px(context, 32);
+            params.topMargin = dip2px(context, 25);
+            params.bottomMargin = dip2px(context, 25);
             params.leftMargin = dip2px(context, 16);
             params.rightMargin = dip2px(context, 16);
-            mMessageViewRootView.addView(scrollView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+            mContentViewRootView.addView(scrollView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
             scrollView.addView(mMessageView, params);
             mMessageView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             mMessageView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -356,8 +348,10 @@ public class RichAlert {
         if(mAlertDialog != null) {
             mAlertDialog.dismiss();
             mAlertDialog = null;
-            mMessageViewRootView = null;
+            mContentViewRootView.removeAllViews();
+            mContentViewRootView = null;
             mMessageView = null;
+            mTitleView = null;
             mCheckBox = null;
         }
     }
