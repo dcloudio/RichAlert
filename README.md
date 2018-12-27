@@ -22,7 +22,8 @@ Android效果图|iOS效果图
 <img src="https://github.com/dcloudio/RichAlert/blob/master/imgs/android.png?raw=true" width="250" height=""/>|<img src="https://github.com/dcloudio/RichAlert/blob/master/imgs/IMG_7052.PNG?raw=true" width="250" height=""/>
 
 
-###clone 项目到本地
+## clone 项目到本地
+
 `git clone https://github.com/dcloudio/RichAlert.git`
 
 
