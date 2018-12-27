@@ -1215,7 +1215,7 @@ module.exports = {
 
 				{
 					title: '确认',
-					color: '#3F51B5' }] },
+					titleColor: '#3F51B5' }] },
 
 
 			function (result) {
