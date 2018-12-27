@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -21,23 +20,21 @@ public class RichAlertWXModule extends WXSDKEngine.DestroyableModule {
     public String POSITION = "position";
     public String BUTTONS = "buttons";
     public String CHECKBOX = "checkBox";
-    public String TITLE = "title";
-    public String TITLE_COLOR = "titleColor";
     public String TITLE_ALIGN = "titleAlign";
     //默认黑色
     public static int defColor = Color.BLACK;
 
     RichAlert alert;
 
-    @JSMethod (uiThread = true)
+    @JSMethod(uiThread = true)
     public void show(JSONObject options, JSCallback jsCallback) {
         if (mWXSDKInstance.getContext() instanceof Activity) {
             String content = options.getString(CONTENT);
             int contentColor = WXResourceUtils.getColor(options.getString(CONTENT_COLOR), defColor);
             String contentAlign = options.getString(CONTENT_ALIGN);
 
-            String title = options.getString(TITLE);
-            int titleColor = WXResourceUtils.getColor(options.getString(TITLE_COLOR), defColor);
+            String title = options.getString(RichAlert.TITLE);
+            int titleColor = WXResourceUtils.getColor(options.getString(RichAlert.TITLE_COLOR), defColor);
             String titleAlign = options.getString(TITLE_ALIGN);
 
             String postion = options.getString(POSITION);

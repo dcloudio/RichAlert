@@ -42,6 +42,9 @@ import uni.dcloud.io.uniplugin_richalert.Info.SaxHelper;
 
 public class RichAlert {
 
+    public static String TITLE = "title";
+    public static String TITLE_COLOR = "titleColor";
+
     int mTitleColor = Color.BLACK;
     int mTitleAlign = Gravity.CENTER;
     int mPositiveColor = Color.BLACK;
@@ -55,8 +58,6 @@ public class RichAlert {
     AlertDialog.Builder mBuilder;
     LinearLayout mMessageViewRootView;
 
-    String TITLE = "title";
-    String COLOR = "color";
     String SELECTED = "isSelected";
 
     public RichAlert(@NonNull Context context) {
@@ -183,7 +184,7 @@ public class RichAlert {
             for(int i = 0; i < buttons.size();i++) {
                 JSONObject button = buttons.getJSONObject(i);
                 String title = button.getString(TITLE);
-                int color = WXResourceUtils.getColor(button.getString(COLOR), RichAlertWXModule.defColor);
+                int color = WXResourceUtils.getColor(button.getString(TITLE_COLOR), RichAlertWXModule.defColor);
                 if(TextUtils.isEmpty(title)) {
                     continue;
                 }
@@ -261,7 +262,7 @@ public class RichAlert {
         mCheckBox = new CheckBox(mContext);
 
         mCheckBox.setText(checkBox.getString(TITLE));
-        int color = WXResourceUtils.getColor(checkBox.getString(COLOR), RichAlertWXModule.defColor);
+        int color = WXResourceUtils.getColor(checkBox.getString(TITLE_COLOR), RichAlertWXModule.defColor);
         mCheckBox.setTextColor(color);
         boolean isSelected = false;
         if(checkBox.containsKey(SELECTED)) {
