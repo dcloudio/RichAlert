@@ -83,6 +83,11 @@ public class RichAlertWXModule extends WXSDKEngine.DestroyableModule {
         });
     }
 
+    @JSMethod(uiThread = true)
+    public void dismiss() {
+        destroy();
+    }
+
     @Override
     public void destroy() {
         if (alert != null && alert.isShowing()) {
