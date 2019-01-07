@@ -320,7 +320,7 @@
 			<array>
 				<dict>
 					<key>type</key>
-					<string>moudle</string>
+					<string>module</string>
 					<key>name</key>
 					<string>DCloud-RichAlert</string>
 					<key>class</key>
