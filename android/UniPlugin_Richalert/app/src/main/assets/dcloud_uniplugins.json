@@ -6,7 +6,7 @@
         {
           "type": "module",
           "name": "DCloud-RichAlert",
-          "class": "uni.dcloud.io.uniplugin_richalert.RichAlertWXModule"
+          "class": "uni.dcloud.io.uniplugin_richalert.RichAlertModule"
         }
       ]
     }

@@ -25,8 +25,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.taobao.weex.bridge.JSCallback;
-import com.taobao.weex.utils.WXResourceUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -35,6 +33,8 @@ import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import io.dcloud.feature.uniapp.bridge.UniJSCallback;
+import io.dcloud.feature.uniapp.utils.UniResourceUtils;
 import uni.dcloud.io.uniplugin_richalert.Info.Person;
 import uni.dcloud.io.uniplugin_richalert.Info.SaxHelper;
 
@@ -113,7 +113,7 @@ public class RichAlert {
      * @param jsCallback
      * @return
      */
-    public RichAlert setContent(String content, int Color, String align, JSCallback jsCallback) {
+    public RichAlert setContent(String content, int Color, String align, UniJSCallback jsCallback) {
         try {
             initContentView(mContext);
             ArrayList<Person> data = readxmlForDom(content);
@@ -171,12 +171,12 @@ public class RichAlert {
      * @param jsCallback
      * @return
      */
-    public RichAlert setButtons(JSONArray buttons, final JSCallback jsCallback) {
+    public RichAlert setButtons(JSONArray buttons, final UniJSCallback jsCallback) {
         if(buttons != null && buttons.size() > 0) {
             for(int i = 0; i < buttons.size();i++) {
                 JSONObject button = buttons.getJSONObject(i);
                 String title = button.getString(TITLE);
-                int color = WXResourceUtils.getColor(button.getString(TITLE_COLOR), RichAlertWXModule.defColor);
+                int color = UniResourceUtils.getColor(button.getString(TITLE_COLOR), RichAlertModule.defColor);
                 if(TextUtils.isEmpty(title)) {
                     continue;
                 }
@@ -247,14 +247,14 @@ public class RichAlert {
      * @param jsCallback
      * @return
      */
-    public RichAlert setCheckBox(JSONObject checkBox, final JSCallback jsCallback) {
+    public RichAlert setCheckBox(JSONObject checkBox, final UniJSCallback jsCallback) {
         if(checkBox == null) {
             return this;
         }
         mCheckBox = new CheckBox(mContext);
 
         mCheckBox.setText(checkBox.getString(TITLE));
-        int color = WXResourceUtils.getColor(checkBox.getString(TITLE_COLOR), RichAlertWXModule.defColor);
+        int color = UniResourceUtils.getColor(checkBox.getString(TITLE_COLOR), RichAlertModule.defColor);
         mCheckBox.setTextColor(color);
         boolean isSelected = false;
         if(checkBox.containsKey(SELECTED)) {
@@ -280,7 +280,7 @@ public class RichAlert {
      * @param jsCallback
      * @return
      */
-    private CharSequence getContentCharSequence(ArrayList<Person> data, JSCallback jsCallback) {
+    private CharSequence getContentCharSequence(ArrayList<Person> data, UniJSCallback jsCallback) {
         SpannableStringBuilder spannableString = new SpannableStringBuilder();
         for(Person person : data) {
             if(TextUtils.isEmpty(person.content)) {
@@ -302,7 +302,7 @@ public class RichAlert {
      * @param person
      * @param jsCallback
      */
-    private void setASpan(SpannableStringBuilder spannableString, final Person person, final JSCallback jsCallback) {
+    private void setASpan(SpannableStringBuilder spannableString, final Person person, final UniJSCallback jsCallback) {
         int start = spannableString.toString().length();
         spannableString.append(person.content);
         int end = spannableString.toString().length();

@@ -1,6 +1,6 @@
 
-<msc version="1.9.9.56704">
+<msc version="1.9.9.56704" debug="true" syncDebug ="true">
     <apps>
-        <app appid="__UNI__54FA04A" appver=""/>
+        <app appid="__UNI__BA8CB3D" appver=""/>
     </apps>
 </msc>
